@@ -1,0 +1,48 @@
+#include <iostream>
+
+using namespace std;
+
+class Complex {
+public:
+    int real, imaginary;
+
+    Complex(int r = 0, int i = 0) {
+        real = r;
+        imaginary = i;
+    }
+
+    Complex add(const Complex& other) {
+        Complex result;
+        result.real = real + other.real;
+        result.imaginary = imaginary + other.imaginary;
+        return result;
+    }
+
+    Complex multi(const Complex& other) {
+        Complex result;
+        result.real = real * other.real - imaginary * other.imaginary;
+        result.imaginary = real * other.imaginary + other.real * imaginary;
+        return result;
+    }
+};
+
+int main() {
+    Complex c;
+    cout << "Default Complex number: " << c.real << "+" << c.imaginary << "i" << endl;
+
+    Complex C1(3, 2);
+    cout << "Complex number 1: " << C1.real << "+" << C1.imaginary << "i" << endl;
+
+    Complex C2(9, 5);
+    cout << "Complex number 2: " << C2.real << "+" << C2.imaginary << "i" << endl;
+
+    Complex C3;
+    C3 = C1.add(C2);
+    cout << "SUM OF COMPLEX NO.: " << C3.real << "+" << C3.imaginary << "i" << endl;
+
+    Complex C4;
+    C4 = C1.multi(C2);
+    cout << "Multiplication of complex number: " << C4.real << "+" << C4.imaginary << "i" << endl;
+
+    return 0;
+}
