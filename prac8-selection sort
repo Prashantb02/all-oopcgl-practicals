@@ -1,39 +1,31 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-
-template<class T>
-T selection() {
-    T a[10], temp;
-    cout << "Enter the numbers" << endl;
-    for (int i = 0; i < 5; i++)
-        cin >> a[i];
-    
-    for (int i = 0; i < 5; i++) {
-        for (int j = i + 1; j < 5; j++) {
-            if (a[i] > a[j]) {
-                temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
-            }
-        }
-    }
-    
-    cout << "Sorted array is" << endl;
-    for (int i = 0; i < 5; i++)
-        cout << a[i] << endl;
-
-    // Assuming you want to return the first element of the sorted array
-    return a[0];
+template <class T> T selection()
+{
+T a[10],temp;
+cout<<"enter the nos "<<endl;
+for (int i = 0; i < 5; i++)
+cin>>a[i];
+for (int i=0;i<5;i++)
+{
+for (int j=i+1;j<5;j++)
+{
+if (a[i]>a[j])
+{
+temp=a[i];
+a[i]=a[j];
+a[j]=temp;
 }
-
-int main() {
-    cout << "Enter the int values" << endl;
-    int resultInt = selection<int>();
-    cout << "Smallest int value: " << resultInt << endl;
-
-    cout << "Enter the float values" << endl;
-    float resultFloat = selection<float>();
-    cout << "Smallest float value: " << resultFloat << endl;
-
-    return 0;
+}
+}
+cout<<"sorted array is "<<endl;
+for(int i=0;i<5;i++)
+cout<<a[i]<<endl;
+return 0;
+}
+int main(){
+cout<<"enter the int values "<<endl;
+selection<int>();
+cout<<"enter the float values "<<endl;
+selection<float>();
 }
