@@ -1,48 +1,60 @@
-#include <iostream>
-
+#include<iostream>
 using namespace std;
-
-class Complex {
-public:
-    int real, imaginary;
-
-    Complex(int r = 0, int i = 0) {
-        real = r;
-        imaginary = i;
-    }
-
-    Complex add(const Complex& other) {
-        Complex result;
-        result.real = real + other.real;
-        result.imaginary = imaginary + other.imaginary;
-        return result;
-    }
-
-    Complex multi(const Complex& other) {
-        Complex result;
-        result.real = real * other.real - imaginary * other.imaginary;
-        result.imaginary = real * other.imaginary + other.real * imaginary;
-        return result;
-    }
+class Complex
+{ public:
+    float real,imaginary;
+  Complex(){
+    real=0;
+    imaginary=0;
+  }
+  Complex operator +(Complex b){
+    Complex sum;
+    sum.real=real+b.real;
+    sum.imaginary=imaginary+b.imaginary;
+    return sum;
+  }
+  Complex operator *(Complex b){
+    Complex product;
+    product.real=real*b.real-imaginary*b.imaginary;
+    product.imaginary=real*b.imaginary+imaginary*b.real;
+    return product;
+  }
+  friend ostream & operator << (ostream &out, Complex c);
+  friend istream & operator >> (istream &in,  Complex& c);
 };
-
-int main() {
-    Complex c;
-    cout << "Default Complex number: " << c.real << "+" << c.imaginary << "i" << endl;
-
-    Complex C1(3, 2);
-    cout << "Complex number 1: " << C1.real << "+" << C1.imaginary << "i" << endl;
-
-    Complex C2(9, 5);
-    cout << "Complex number 2: " << C2.real << "+" << C2.imaginary << "i" << endl;
-
-    Complex C3;
-    C3 = C1.add(C2);
-    cout << "SUM OF COMPLEX NO.: " << C3.real << "+" << C3.imaginary << "i" << endl;
-
-    Complex C4;
-    C4 = C1.multi(C2);
-    cout << "Multiplication of complex number: " << C4.real << "+" << C4.imaginary << "i" << endl;
-
-    return 0;
+ostream & operator << (ostream &out,  Complex c)
+{
+    out << c.real;
+    if (c.imaginary<0)
+    {
+out << "-" << -c.imaginary <<"i"<< endl;
+    }
+    else{
+    out << "+" << c.imaginary <<"i"<< endl;
+    }
+    return out;
+}
+istream & operator >> (istream &in, Complex& c)
+{   cout<<"Real:";
+    in >> c.real;
+    cout << "Imaginary:";
+    in >> c.imaginary;
+    return in;
+}
+int main(){
+    Complex c1;
+    cout<<"Enter Complex number 1"<<endl;
+    cin>>c1;
+    cout<<c1;
+    Complex c2;
+    cout<<"Enter Complex number 2"<<endl;
+    cin>>c2;
+    cout<<c2;
+     Complex c3;
+     cout<<"Enter Complex number 3"<<endl;
+    cin>>c3;
+    cout<<c3;
+    Complex c4;
+    c4=c1+c2;
+    cout<<c4;
 }
