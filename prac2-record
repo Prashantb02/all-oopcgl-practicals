@@ -1,30 +1,17 @@
-#include<iostream>
-#include<string.h>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
 class Info {
 public:
-    char name[30], year[3], add[30], dob[10];
+    string name, year, add, dob;
     float marks;
     long tel_no;
 
-    Info();  // Default constructor
     void accept();
     void display();
-    static int count();
 };
-
-int Info::cnt = 0;
-
-Info::Info() {
-    strcpy(name, "Default");
-    strcpy(year, "FE");
-    strcpy(add, "Default");
-    marks = 0;
-    tel_no = 10;
-    strcpy(dob, "1/1/90");
-}
 
 void Info::accept() {
     cout << "Enter the name: "; cin >> name;
@@ -44,14 +31,10 @@ void Info::display() {
     cout << "\nDate of birth: " << dob;
 }
 
-int Info::count() {
-    cnt = cnt + 1;
-    return cnt;
-}
-
 int main() {
-    int ch, n, ch1, pos, temp, flag = 0;
+    int ch, n = 0, pos, flag = 0;
     Info o[50];
+    string searchName;  // Move the declaration here
 
     do {
         cout << "\n\n==============";
@@ -68,20 +51,8 @@ int main() {
 
         switch (ch) {
             case 1:
-                cout << "\n1. Inbuilt record..?";
-                cout << "\n2. New record..?";
-                cin >> ch1;
-
-                switch (ch1) {
-                    case 1:
-                        Info a1;
-                        cout << "\nDefault values initialized";
-                        n = Info::count();
-                        break;
-                    case 2:
-                        o[Info::count()].accept();
-                        break;
-                }
+                o[n].accept();
+                n++;
                 break;
 
             case 2:
@@ -91,26 +62,25 @@ int main() {
                 break;
 
             case 3:
-                cout << "\nEnter the position to insert record: ";
+                cout << "\nEnter the position to insert record (1 to " << n + 1 << "): ";
                 cin >> pos;
-                n = Info::count();
-                pos = pos - 1;
-
-                for (int i = n; i >= pos; i--) {
-                    temp = pos;
-                    o[i + 1] = o[i];
+                if (pos >= 1 && pos <= n + 1) {
+                    for (int i = n; i >= pos - 1; i--) {
+                        o[i + 1] = o[i];
+                    }
+                    o[pos - 1].accept();
+                    n++;
+                } else {
+                    cout << "\nInvalid position.";
                 }
-
-                o[temp].accept();
                 break;
 
             case 4:
-                char name[30];
                 cout << "Enter the name to be searched: ";
-                cin >> name;
+                cin >> searchName;
 
                 for (int i = 0; i < n; i++) {
-                    if (strcmp(name, o[i].name) == 0) {
+                    if (searchName == o[i].name) {
                         flag = 1;
                         o[i].display();
                         break;
@@ -119,24 +89,28 @@ int main() {
 
                 if (flag == 0)
                     cout << "Sorry.. Record not found";
+                flag = 0;
                 break;
 
             case 5:
-                cout << "\nEnter the position to delete record: ";
+                cout << "\nEnter the position to delete record (1 to " << n << "): ";
                 cin >> pos;
-                pos = pos - 1;
-
-                for (int i = pos; i < n; i++) {
-                    temp = pos;
-                    o[i] = o[i + 1];
+                if (pos >= 1 && pos <= n) {
+                    for (int i = pos - 1; i < n - 1; i++) {
+                        o[i] = o[i + 1];
+                    }
+                    cout << "\nRecord is deleted..";
+                    n--;
+                } else {
+                    cout << "\nInvalid position.";
                 }
-
-                cout << "\nRecord is deleted..";
-                n = Info::cnt - 1;
                 break;
 
             case 6:
                 break;
+
+            default:
+                cout << "\nInvalid choice.";
         }
     } while (ch != 6);
 
