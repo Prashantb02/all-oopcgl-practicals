@@ -1,151 +1,144 @@
-#include<iostream> 
-#include<string.h> 
-using namespace std; 
-class info
-{
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+
+class Info {
 public:
-char dob[10]; 
-char add[30];
-char name[30],year[3]; 
-float marks;
-long tel_no; 
-static int cnt; 
-info(); 
-info(info &); 
-void accept(); 
-void display();
-static int count();
+    char name[30], year[3], add[30], dob[10];
+    float marks;
+    long tel_no;
+
+    Info();  // Default constructor
+    void accept();
+    void display();
+    static int count();
 };
 
-info::info()// default constructor
-{
-strcpy(name,"Default"); 
-strcpy(year,"FE"); 
-strcpy(add,"Default"); 
-marks=0;
-tel_no=10; 
-strcpy(dob,"1/1/90");
+int Info::cnt = 0;
 
-}
-info::info(info &p)//Parametrized constructor
-{
-strcpy(name,p.name); 
-strcpy(year,p.year); 
-marks=p.marks; 
-tel_no=p.tel_no; 
-strcpy(dob,p.dob);
-
-}
-void info::accept()
-{
-cout<<"Enter the name::"; cin>>name;
-cout<<"Enter the address:"; cin>>add;
-cout<<"Enter the year:"; cin>>year;
-
-
-cout<<"Enter telephone number:"; cin>>tel_no;
-cout<<"Enter Marks:"; cin>>marks;
-cout<<"Enter date of birth:"; cin>>dob;
-}
-void info::display()
-{
-cout<<"\n\nName:"<<this->name;// this pointer cout<<"\nAddress:"<<this->add; cout<<"\nyear:"<<this->year; cout<<"\nTelephone number:"<<this->tel_no; cout<<"\nMarks:"<<this->marks; cout<<"\nDate of birth:"<<this->dob;
-}
-int info::cnt=0; 
-int info::count()
-{
-cnt=cnt+1; 
-return(cnt);
-}
-int main()
-{
-int ch,i,n,ch1,pos,temp,flag=0; 
-info o[50];
-char name[12]; 
-do
-{ cout<<"\n\n==============" ;
-cout<<"\n	MENU"; 
-cout<<"\n==============";
-cout<<"\n1.Accept"; 
-cout<<"\n2.Display"; 
-cout<<"\n3.Insert record"; 
-cout<<"\n4.Search record"; 
-cout<<"\n5.Delete record"; 
-cout<<"\n6.Exit"; 
-cout<<"\nEnter your choice:"; 
-cin>>ch;
-switch(ch)
-{
-case 1:cout<<"\n1.Inbuilt record..?"; 
-cout<<"\n2.New record..?"; 
-cin>>ch1;
-
-
-
-switch(ch1)
-{
-case 1:
-info a1(info o1);
-cout<<"\nDefault values initialized	";
-n=info::count(); 
-break;
-case 2:
-o[n].accept();//array of objects n=info::count();
-
-break;
+Info::Info() {
+    strcpy(name, "Default");
+    strcpy(year, "FE");
+    strcpy(add, "Default");
+    marks = 0;
+    tel_no = 10;
+    strcpy(dob, "1/1/90");
 }
 
-break;
-case 2:for(i=0;i<n;i++)
-{
-o[i].display();
+void Info::accept() {
+    cout << "Enter the name: "; cin >> name;
+    cout << "Enter the address: "; cin >> add;
+    cout << "Enter the year: "; cin >> year;
+    cout << "Enter telephone number: "; cin >> tel_no;
+    cout << "Enter Marks: "; cin >> marks;
+    cout << "Enter date of birth: "; cin >> dob;
 }
-break;
-case 3:cout<<"\nEnter the position to insert record:"; 
-cin>>pos;
 
-n=info::count(); 
-pos=pos-1; 
-for(i=n;i>=pos;i--)
-{
-temp=pos;
- o[i+1]=o[i ];
+void Info::display() {
+    cout << "\n\nName: " << name;
+    cout << "\nAddress: " << add;
+    cout << "\nYear: " << year;
+    cout << "\nTelephone number: " << tel_no;
+    cout << "\nMarks: " << marks;
+    cout << "\nDate of birth: " << dob;
 }
-o[temp].accept(); 
-break;
-case 4:cout<<"Enter the name to be searched:"; 
-cin>>name;
-for(i=0;i<n;i++)
-{
-if(strcmp(name,o[i].name)==0)
-{
-flag=1; 
-o[i].display();
 
-break;
+int Info::count() {
+    cnt = cnt + 1;
+    return cnt;
 }
-}
-if(flag==0)
-cout<<"Sorry.. Record not found"; 
-break;
 
-case 5:cout<<"\nEnter the position to delete record:";
- cin>>pos;
-pos=pos-1; 
+int main() {
+    int ch, n, ch1, pos, temp, flag = 0;
+    Info o[50];
 
+    do {
+        cout << "\n\n==============";
+        cout << "\n    MENU";
+        cout << "\n==============";
+        cout << "\n1. Accept";
+        cout << "\n2. Display";
+        cout << "\n3. Insert record";
+        cout << "\n4. Search record";
+        cout << "\n5. Delete record";
+        cout << "\n6. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> ch;
 
+        switch (ch) {
+            case 1:
+                cout << "\n1. Inbuilt record..?";
+                cout << "\n2. New record..?";
+                cin >> ch1;
 
+                switch (ch1) {
+                    case 1:
+                        Info a1;
+                        cout << "\nDefault values initialized";
+                        n = Info::count();
+                        break;
+                    case 2:
+                        o[Info::count()].accept();
+                        break;
+                }
+                break;
 
-for(i=pos;i<n;i++)
-{
-temp=pos; 
-o[i]=o[i+1];
+            case 2:
+                for (int i = 0; i < n; i++) {
+                    o[i].display();
+                }
+                break;
 
-}
-cout<<"\nRecord is deleted.."; 
-n=info::cnt-1;
-break;
- case 6:break;
-}
-}while(ch!=6); return 0;
+            case 3:
+                cout << "\nEnter the position to insert record: ";
+                cin >> pos;
+                n = Info::count();
+                pos = pos - 1;
+
+                for (int i = n; i >= pos; i--) {
+                    temp = pos;
+                    o[i + 1] = o[i];
+                }
+
+                o[temp].accept();
+                break;
+
+            case 4:
+                char name[30];
+                cout << "Enter the name to be searched: ";
+                cin >> name;
+
+                for (int i = 0; i < n; i++) {
+                    if (strcmp(name, o[i].name) == 0) {
+                        flag = 1;
+                        o[i].display();
+                        break;
+                    }
+                }
+
+                if (flag == 0)
+                    cout << "Sorry.. Record not found";
+                break;
+
+            case 5:
+                cout << "\nEnter the position to delete record: ";
+                cin >> pos;
+                pos = pos - 1;
+
+                for (int i = pos; i < n; i++) {
+                    temp = pos;
+                    o[i] = o[i + 1];
+                }
+
+                cout << "\nRecord is deleted..";
+                n = Info::cnt - 1;
+                break;
+
+            case 6:
+                break;
+        }
+    } while (ch != 6);
+
+    return 0;
 }
